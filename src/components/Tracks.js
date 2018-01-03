@@ -6,6 +6,7 @@ import CircularProgress from 'material-ui/CircularProgress';
 import {Link} from 'react-router-dom';
 
 import Track from './Track';
+import LoadMore from './LoadMore';
 
 const style = {
     marginTop: 40,
@@ -34,6 +35,13 @@ class Tracks extends Component {
         return tracks;
     };
 
+    //if all the tracks are loaded, don't show button
+    renderLoadMore () {
+        if (this.props.tracks.available-this.props.tracks.tracks.length > 0) {
+            return <LoadMore/>
+        }
+    };
+
     render () {
         if (this.props.tracks.isFetching) {
             return <div className='loading'>
@@ -47,6 +55,7 @@ class Tracks extends Component {
                 <h2>TRACKS</h2>
                 <Divider/>
                 {this.renderTracks()}
+                {this.renderLoadMore()}
             </div>
         );
     }

@@ -55,7 +55,6 @@ class Search extends Component {
     };
 
     render () {
-        console.log(this.props.tracks.tracks, this.props.tracks.available);
         return (
             <div style={searchStyle}>
                 <div>
@@ -76,7 +75,7 @@ class Search extends Component {
 
 function fetchMusic(value) {
     return (dispatch) => {
-        let url = 'https://musixmatchcom-musixmatch.p.mashape.com/wsr/1.1/track.search?f_has_lyrics=1&page=1&page_size=20&q=' +
+        let url = 'https://musixmatchcom-musixmatch.p.mashape.com/wsr/1.1/track.search?f_has_lyrics=1&page=1&page_size=30&q=' +
             value + '&s_track_rating=desc';
         dispatch(fetchTracks());
         return fetch(url, {headers: {'Accept': 'application/json', 'X-Mashape-Key': 'Yllm790cC9mshjl2vkAWojoxh3z3p15JuwQjsnx88m2g79Z5KJ'}})
@@ -92,7 +91,7 @@ function fetchMusic(value) {
                     }
                     return response.json();
                 }})
-            .then(response => dispatch(fetchTracksSuccess(response)))
+            .then(response => dispatch(fetchTracksSuccess(response, value)))
             .catch(err => console.warn(err));
     }
 }

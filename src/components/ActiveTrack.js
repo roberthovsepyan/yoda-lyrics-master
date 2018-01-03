@@ -60,6 +60,7 @@ class ActiveTrack extends Component {
     };
 
     yodafyLyrics () {
+        //replacing spaces and newlines for correct api call
         let value = this.props.lyrics.lyrics.lyrics_body.split('*')[0].replace(/\n/g, '. ').replace(/\s/g, '+');
         this.props.yodafy_lyrics(value);
     };
@@ -78,7 +79,6 @@ class ActiveTrack extends Component {
                         <CircularProgress size={80} thickness={7} color={green600}/>
                    </div>
         }
-        console.log(this.props.lyrics.yodafy);
         return (
             <div>
                 <div style={linkStyle}>
