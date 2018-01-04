@@ -9,7 +9,7 @@ class LoadMore extends Component {
     handleClick () {
         //calculate what page to search for in the api call
         let page = this.props.tracks.tracks.length/30 + 1;
-        this.props.fetchMore(this.props.tracks.value, page);
+        this.props.fetchMore(this.props.tracks.formValue, page);
     };
 
     render () {

@@ -73,6 +73,18 @@ class ActiveTrack extends Component {
         })}
     };
 
+    //find the name of the track and artist
+    findTrack () {
+        let song = {};
+        this.props.tracks.tracks.forEach((track) => {
+            if (track.track_id === Number(this.props.match.params.id)) {
+                song.name = track.track_name;
+                song.artist = track.artist_name;
+            }
+        });
+        return song;
+    };
+
     render () {
         if (!this.props.lyrics.lyrics || this.props.lyrics.isFetching) {
             return <div className='loading'>
@@ -85,6 +97,10 @@ class ActiveTrack extends Component {
                     <Link to='/'>
                         <img src={YodaHead} alt='yoda_head'/>
                     </Link>
+                </div>
+                <div style={{textAlign: 'center'}}>
+                    <p style={{color: green900, fontSize: 'x-large'}}>{this.findTrack().name}</p>
+                    <p style={{fontSize: 'large'}}>{this.findTrack().artist}</p>
                 </div>
                 <div style={style}>
                     {this.renderYodafied() || this.renderLyrics()}
@@ -132,7 +148,7 @@ function yodafy_lyrics (value) {
     }
 }
 
-ActiveTrack = connect((state) => ({lyrics: state.lyrics}), {fetch_lyrics, yodafy_lyrics})(ActiveTrack);
+ActiveTrack = connect((state) => ({lyrics: state.lyrics, tracks: state.tracks}), {fetch_lyrics, yodafy_lyrics})(ActiveTrack);
 
 ActiveTrack = withRouter(ActiveTrack);
 
